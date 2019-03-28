@@ -12,11 +12,14 @@ class Individual(object):
         else:
             self.genes = [randint(0, 1) for x in range(5)]
 
+        self.objective_function = 0
+        values = [20, 15, 60, 35, 10]
+
+        for i in range(5):
+            self.objective_function += self.genes[i] * values[i]
+
     def __getitem__(self, gene):
         return self.genes[gene]
-
-    def get_all_genes(self):
-        return self.genes
 
     # Verifica se a restrição é obedecida
     # A soma dos pesos das sacolas não deve ultrapassar 90kg

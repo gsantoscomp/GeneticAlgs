@@ -15,12 +15,35 @@ class Population(object):
     # dentro da população e retorna uma lista com os indivíduos repetidos
     def equal_individuals(self, individual: Individual):
         for x in self.individuals:
-            if x.get_all_genes() == individual.get_all_genes():
+            if x.genes == individual.genes:
                 return True
         return False
 
+    # Retorna uma lista com os objetos Individuals ordenados pela função objetiva
+    def get_sorted_population(self):
+        sorted_population = []
+        index_sorted_individual = []
+        index_value_dict = {}
+        sorted_list = {}
+        counter = 0
+
+        for individual in self.individuals:
+            index_value_dict[counter] = individual.objective_function
+            counter += 1
+
+        for individual in index_value_dict:
+            sorted_list = sorted(index_value_dict.items(), key=lambda value: value[1], reverse=True)
+
+        for individual in sorted_list:
+            index_sorted_individual.append(individual[0])
+
+        for index in index_sorted_individual:
+            sorted_population.append(self.individuals[index])
+
+        return sorted_list
+
     # Gera a quantidade de indivíduos necessária determinada para a população
-    def generate_individuals(self):
+    def generate_population(self):
         i = 0
         while i < self.quantity:
             actual = Individual()
@@ -30,4 +53,4 @@ class Population(object):
 
     def get_individuals(self):
         for x in self.individuals:
-            print(x.get_all_genes())
+            print(x.genes)
