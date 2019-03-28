@@ -1,7 +1,9 @@
 from individual import Individual
 
+
 class Population(object):
 
+    # A população é criada com a quantidade de indivíduos já estabelecida
     def __init__(self, quantity: int):
         self.quantity = quantity
         self.individuals = []
@@ -10,7 +12,7 @@ class Population(object):
     # dentro da população e retorna uma lista com os indivíduos repetidos
     def equal_individuals(self, individual: Individual):
         for x in self.individuals:
-            if x.get_genes() == individual.get_genes()
+            if x.get_genes() == individual.get_genes():
                 return True
         return False
 
@@ -20,12 +22,12 @@ class Population(object):
 
     # Gera a quantidade de indivíduos necessária determinada para a população
     def generate_individuals(self):
-        for i in range(self.quantity)
+        i = 0
+        while i < self.quantity:
             actual = Individual()
-            if not equal_individuals(actual)
+            if not self.equal_individuals(actual):
                 self.individuals.append(actual)
-            else
-                i -= 1
+                i += 1
 
     def get_individuals(self):
         for x in self.individuals:
