@@ -21,6 +21,9 @@ class Individual(object):
     def __getitem__(self, gene):
         return self.genes[gene]
 
+    def __setitem__(self, gene, value):
+        self.genes[gene] = value
+
     # Verifica se a restrição é obedecida
     # A soma dos pesos das sacolas não deve ultrapassar 90kg
     def check_viability(self):

@@ -54,16 +54,19 @@ class Population(object):
 
         return sorted_population
 
+    # Seleciona um pai da próxima geração pelo método da roleta
     def select_parent(self, selected_individuals):
         values_list = [value.objective_function for value in selected_individuals]
         total = sum(values_list)
         accumulated_percentages = []
 
+        # Criação de uma lista com as porcentagens acumuladas com o peso da função objetiva
         percentage = 0
         for value in values_list:
             percentage += (value/total)*100
             accumulated_percentages.append(percentage)
 
+        # Sorteio do indivíduo
         chosen = 0
         random_number = random.uniform(0, 100)
         for chance in accumulated_percentages:
@@ -72,11 +75,23 @@ class Population(object):
 
         return selected_individuals[chosen]
 
-    def crossover(self, parent1: Individual, parent2:Individual):
-        gene_parent1 = random.randint(0, 4)
-        gene_parent2= random.randint(0, 4)
+    # Cruzamento dos pais para a próxima geração
+    def crossover(self, parent1: Individual, parent2: Individual):
 
-        print(gene_parent1, gene_parent2)
+        # o cruzamento é feito até que se gere filhos que atendam às restrições
+        allowed = False
+        while not allowed:
+            gene_parent1 = random.randint(0, 4)
+            gene_parent2 = random.randint(0, 4)
+
+            temp_value = parent1[gene_parent1]
+            parent1[gene_parent1] = parent2[gene_parent2]
+            parent2[gene_parent2] = temp_value
+
+            if parent1.check_viability() and parent2.check_viability():
+                allowed = True
+
+        return [parent1, parent2]
 
     def get_individuals(self):
         for individual in self.individuals:
