@@ -84,6 +84,7 @@ class Population(object):
             gene_parent1 = random.randint(0, 4)
             gene_parent2 = random.randint(0, 4)
 
+            # troca-se os genes sorteados
             temp_value = parent1[gene_parent1]
             parent1[gene_parent1] = parent2[gene_parent2]
             parent2[gene_parent2] = temp_value
@@ -91,7 +92,34 @@ class Population(object):
             if parent1.check_viability() and parent2.check_viability():
                 allowed = True
 
+            # a ação de troca é desfeita
+            temp_value = parent1[gene_parent1]
+            parent1[gene_parent1] = parent2[gene_parent2]
+            parent2[gene_parent2] = temp_value
+
+        # retorna os filhos
         return [parent1, parent2]
+
+    # define se algum dos filhos gerados sofrerá mutação
+    def mutation(self, individuals: list):
+        # há uma chance de 10% do filho sofrer mutação
+        if random.randint(0, 9) > 0:
+            return individuals
+
+        # o cromossomo alterado deve estar de acordo com as restrições
+        allowed = False
+        while not allowed:
+            son = individuals[random.randint(0, 1)]
+            gene = random.randint(0, 4)
+            son[gene] = 0 if son[gene] == 1 else 1
+
+            if son.check_viability():
+                allowed = True
+
+            # desfaz a alteração realizada sobre o gene escolhido
+            son[gene] = 0 if son[gene] == 1 else 1
+
+        return individuals
 
     def get_individuals(self):
         for individual in self.individuals:
