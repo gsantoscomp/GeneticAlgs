@@ -35,4 +35,13 @@ class Individual(object):
 
         if result > 90:
             return False
+
+        # o valor da função objetiva é recalculado após a checagem da restrição
+        objective_function = 0
+        values = [20, 15, 60, 35, 10]
+        for i in range(5):
+            objective_function += self.genes[i] * values[i]
+
+        self.objective_function = objective_function
+
         return True
