@@ -5,8 +5,13 @@ class Population(object):
 
     # A população é criada com a quantidade de indivíduos já estabelecida
     def __init__(self, quantity: int):
-        self.quantity = quantity
         self.individuals = []
+        i = 0
+        while i < quantity:
+            actual = Individual()
+            if (actual.check_viability()) and (not self.equal_individuals(actual)):
+                self.individuals.append(actual)
+                i += 1
 
     def __getitem__(self, individual):
         return self.individuals[individual]
@@ -19,7 +24,7 @@ class Population(object):
                 return True
         return False
 
-    # Retorna uma lista com os objetos Individuals ordenados pela função objetiva
+    # Retorna uma lista com os objetos Individuals ordenados pelo valor da função objetiva
     def get_sorted_population(self):
         sorted_population = []
         index_sorted_individual = []
@@ -42,15 +47,6 @@ class Population(object):
 
         return sorted_population
 
-    # Gera a quantidade de indivíduos necessária determinada para a população
-    def generate_population(self):
-        i = 0
-        while i < self.quantity:
-            actual = Individual()
-            if (actual.check_viability()) and (not self.equal_individuals(actual)):
-                self.individuals.append(actual)
-                i += 1
-
     def get_individuals(self):
-        for x in self.individuals:
-            print(x.genes)
+        for individual in self.individuals:
+            print(individual.genes)
