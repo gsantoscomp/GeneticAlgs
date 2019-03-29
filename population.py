@@ -4,6 +4,7 @@ from individual import Individual
 class Population(object):
 
     # A população é criada com a quantidade de indivíduos já estabelecida
+    # Verifica-se também as restrições de cada indivíduo e se existem indivíduos repetidos
     def __init__(self, quantity: int):
         self.individuals = []
         i = 0
@@ -29,19 +30,24 @@ class Population(object):
         sorted_population = []
         index_sorted_individual = []
         index_value_dict = {}
-        sorted_list = {}
         counter = 0
 
+        # Associa o id do indivíduo ao valor da sua função objetiva dentro
+        # dentro do dicionário "index_value_dict"
         for individual in self.individuals:
             index_value_dict[counter] = individual.objective_function
             counter += 1
 
-        for individual in index_value_dict:
-            sorted_list = sorted(index_value_dict.items(), key=lambda value: value[1], reverse=True)
+        # Ordena o dicionário a partir do valor da função objetiva
+        sorted_list = sorted(index_value_dict.items(),
+                             key=lambda value: value[1],
+                             reverse=True)
 
+        # Guarda os ids dos indivíduos ordenados
         for individual in sorted_list:
             index_sorted_individual.append(individual[0])
 
+        # Cria uma nova lista com os indíviduos ordenados
         for index in index_sorted_individual:
             sorted_population.append(self.individuals[index])
 
