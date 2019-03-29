@@ -1,4 +1,6 @@
+from random import uniform
 from individual import Individual
+
 
 
 class Population(object):
@@ -52,6 +54,24 @@ class Population(object):
             sorted_population.append(self.individuals[index])
 
         return sorted_population
+
+    def select_parent(self, selected_individuals):
+        values_list = [value.objective_function for value in selected_individuals]
+        total = sum(values_list)
+        accumulated_percentages = []
+
+        percentage = 0
+        for value in values_list:
+            percentage += (value/total)*100
+            accumulated_percentages.append(percentage)
+
+        chosen = 0
+        random_number = uniform(0, 100)
+        for chance in accumulated_percentages:
+            if random_number > chance:
+                chosen += 1
+
+        return selected_individuals[chosen]
 
     def get_individuals(self):
         for individual in self.individuals:
