@@ -1,6 +1,5 @@
-from random import uniform
+import random
 from individual import Individual
-
 
 
 class Population(object):
@@ -66,12 +65,18 @@ class Population(object):
             accumulated_percentages.append(percentage)
 
         chosen = 0
-        random_number = uniform(0, 100)
+        random_number = random.uniform(0, 100)
         for chance in accumulated_percentages:
             if random_number > chance:
                 chosen += 1
 
         return selected_individuals[chosen]
+
+    def crossover(self, parent1: Individual, parent2:Individual):
+        gene_parent1 = random.randint(0, 4)
+        gene_parent2= random.randint(0, 4)
+
+        print(gene_parent1, gene_parent2)
 
     def get_individuals(self):
         for individual in self.individuals:
