@@ -40,7 +40,7 @@ class Population(object):
         for index in index_sorted_individual:
             sorted_population.append(self.individuals[index])
 
-        return sorted_list
+        return sorted_population
 
     # Gera a quantidade de indivíduos necessária determinada para a população
     def generate_population(self):
