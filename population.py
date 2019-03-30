@@ -77,7 +77,6 @@ class Population(object):
 
     # Cruzamento dos pais para a próxima geração
     def crossover(self, parent1: Individual, parent2: Individual):
-
         # o cruzamento é feito até que se gere filhos que atendam às restrições
         allowed = False
         while not allowed:
@@ -91,14 +90,12 @@ class Population(object):
 
             if parent1.check_viability() and parent2.check_viability():
                 allowed = True
+            else:
+                temp_value = parent1[gene_parent1]
+                parent1[gene_parent1] = parent2[gene_parent2]
+                parent2[gene_parent2] = temp_value
 
-            # a ação de troca é desfeita
-            temp_value = parent1[gene_parent1]
-            parent1[gene_parent1] = parent2[gene_parent2]
-            parent2[gene_parent2] = temp_value
-
-        # retorna os filhos
-        return [parent1, parent2]
+        return
 
     # define se algum dos filhos gerados sofrerá mutação
     def mutation(self, individuals: list):
@@ -115,11 +112,11 @@ class Population(object):
 
             if son.check_viability():
                 allowed = True
+            else:
+                # desfaz a alteração realizada sobre o gene escolhido
+                son[gene] = 0 if son[gene] == 1 else 1
 
-            # desfaz a alteração realizada sobre o gene escolhido
-            son[gene] = 0 if son[gene] == 1 else 1
-
-        return individuals
+        return
 
     def get_individuals(self):
         for individual in self.individuals:
