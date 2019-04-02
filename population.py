@@ -67,6 +67,7 @@ class Population(object):
                 percentage += (value/total)*100
                 accumulated_percentages.append(percentage)
 
+            print([number for number in accumulated_percentages])
             # Sorteio do indivíduo
             chosen = 0
             random_number = random.uniform(0, 100)
@@ -93,6 +94,7 @@ class Population(object):
 
             if parent1.check_viability() and parent2.check_viability():
                 allowed = True
+                print("Filhos gerados por cross-over:", parent1.genes, parent2.genes)
             else:
                 temp_value = parent1[gene_parent1]
                 parent1[gene_parent1] = parent2[gene_parent2]
@@ -104,6 +106,7 @@ class Population(object):
     def mutation(self, individuals: list):
         # há uma chance de 10% do filho sofrer mutação
         if random.randint(0, 9) > 0:
+            print("Mutação (Chance de 10%): Não houve\n")
             return individuals
 
         # o cromossomo alterado deve estar de acordo com as restrições
@@ -115,6 +118,7 @@ class Population(object):
 
             if son.check_viability():
                 allowed = True
+                print("Mutação (Chance de 10%): Houve mutação no gene:", gene+1, "\n")
             else:
                 # desfaz a alteração realizada sobre o gene escolhido
                 son[gene] = 0 if son[gene] == 1 else 1
