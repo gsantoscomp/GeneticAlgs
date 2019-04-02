@@ -60,20 +60,23 @@ class Population(object):
         total = sum(values_list)
         accumulated_percentages = []
 
-        # Criação de uma lista com as porcentagens acumuladas com o peso da função objetiva
-        percentage = 0
-        for value in values_list:
-            percentage += (value/total)*100
-            accumulated_percentages.append(percentage)
+        if total != 0:
+            # Criação de uma lista com as porcentagens acumuladas com o peso da função objetiva
+            percentage = 0
+            for value in values_list:
+                percentage += (value/total)*100
+                accumulated_percentages.append(percentage)
 
-        # Sorteio do indivíduo
-        chosen = 0
-        random_number = random.uniform(0, 100)
-        for chance in accumulated_percentages:
-            if random_number > chance:
-                chosen += 1
+            # Sorteio do indivíduo
+            chosen = 0
+            random_number = random.uniform(0, 100)
+            for chance in accumulated_percentages:
+                if random_number > chance:
+                    chosen += 1
 
-        return selected_individuals[chosen]
+            return selected_individuals[chosen]
+
+        return selected_individuals[random.randint(0, 3)]
 
     # Cruzamento dos pais para a próxima geração
     def crossover(self, parent1: Individual, parent2: Individual):

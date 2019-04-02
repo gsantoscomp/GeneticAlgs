@@ -6,7 +6,7 @@ population = Population(8)
 
 best = population[randint(0, 7)]
 counter = 0
-while counter < 4:
+while counter < 100:
     # Guarda-se a população ordenada pela função objetiva
     sorted_population = population.get_sorted_population()
 
@@ -15,7 +15,6 @@ while counter < 4:
     best_individual = sorted_population[0]
     if best_individual.objective_function > best.objective_function:
         best = best_individual
-        print(best.objective_function)
         counter = 0
     else:
         counter += 1
