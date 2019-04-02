@@ -118,7 +118,7 @@ class Population(object):
 
             if son.check_viability():
                 allowed = True
-                print("Mutação (Chance de 10%): Houve mutação no gene:", gene+1, "\n")
+                print("Mutação (Chance de 10%): Houve mutação no filho", son.genes, "e no gene", gene+1, "\n")
             else:
                 # desfaz a alteração realizada sobre o gene escolhido
                 son[gene] = 0 if son[gene] == 1 else 1
